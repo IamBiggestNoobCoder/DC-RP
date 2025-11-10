@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Dream City RP</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+    
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0a0a0a;
+        }
+        
+        h1, h2, h3, h4, h5, h6, .font-orbitron {
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #111827;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #84cc16;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #a3e635;
+        }
+
+        .glass-card {
+            background: rgba(17, 24, 39, 0.8);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(132, 204, 22, 0.2);
+        }
+    </style>
+</head>
+<body class="bg-gray-950 text-gray-100 min-h-screen">
+    
+    <!-- Navigation -->
+    <nav class="glass-card border-b border-gray-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <a href="index.html" class="flex items-center">
+                    <img src="dc-logo.png" alt="Dream City RP Logo" class="h-8 w-8 mr-3">
+                    <h1 class="font-orbitron text-xl font-bold text-white uppercase">
+                        <span class="text-lime-400">Dream</span>City
+                    </h1>
+                </a>
+                
+                <div class="flex items-center space-x-4">
+                    <div id="user-info" class="flex items-center space-x-3">
+                        <img id="user-avatar" src="" alt="Avatar" class="h-10 w-10 rounded-full border-2 border-lime-400">
+                        <span id="user-name" class="text-gray-300 font-medium"></span>
+                    </div>
+                    <button id="logout-btn" class="flex items-center text-gray-400 hover:text-red-400 transition-colors duration-300">
+                        <i data-lucide="log-out" class="w-5 h-5 mr-2"></i>
+                        Logout
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        
+        <!-- Welcome Section -->
+        <div class="mb-8">
+            <h2 class="font-orbitron text-3xl font-bold text-white mb-2">Welcome Back!</h2>
+            <p class="text-gray-400">Manage your Dream City RP account and view your progress</p>
+        </div>
+
+        <!-- Stats Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+            <!-- Subscription Tier -->
+            <div class="glass-card rounded-lg p-6">
+                <div class="flex items-center justify-between mb-4">
+                    <div class="text-lime-400">
+                        <i data-lucide="crown" class="w-8 h-8"></i>
+                    </div>
+                    <span id="tier-badge" class="px-3 py-1 rounded-full text-xs font-bold bg-gray-700 text-gray-300">NONE</span>
+                </div>
+                <h3 class="text-gray-400 text-sm uppercase mb-1">Subscription</h3>
+                <p id="tier-name" class="font-orbitron text-2xl font-bold text-white">Free Tier</p>
+            </div>
+
+            <!-- Queue Priority -->
+            <div class="glass-card rounded-lg p-6">
+                <div class="flex items-center justify-between mb-4">
+                    <div class="text-lime-400">
+                        <i data-lucide="zap" class="w-8 h-8"></i>
+                    </div>
+                </div>
+                <h3 class="text-gray-400 text-sm uppercase mb-1">Queue Priority</h3>
+                <p id="queue-priority" class="font-orbitron text-2xl font-bold text-white">0</p>
+            </div>
+
+            <!-- Whitelist Status -->
+            <div class="glass-card rounded-lg p-6">
+                <div class="flex items-center justify-between mb-4">
+                    <div id="whitelist-icon" class="text-gray-400">
+                        <i data-lucide="shield-x" class="w-8 h-8"></i>
+                    </div>
+                </div>
+                <h3 class="text-gray-400 text-sm uppercase mb-1">Whitelist Status</h3>
+                <p id="whitelist-status" class="font-orbitron text-2xl font-bold text-red-400">Not Whitelisted</p>
+            </div>
+
+            <!-- Playtime -->
+            <div class="glass-card rounded-lg p-6">
+                <div class="flex items-center justify-between mb-4">
+                    <div class="text-lime-400">
+                        <i data-lucide="clock" class="w-8 h-8"></i>
+                    </div>
+                </div>
+                <h3 class="text-gray-400 text-sm uppercase mb-1">Playtime</h3>
+                <p id="playtime" class="font-orbitron text-2xl font-bold text-white">0h</p>
+            </div>
+        </div>
+
+        <!-- Profile & Stats Section -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            
+            <!-- Profile Card -->
+            <div class="glass-card rounded-lg p-6">
+                <h3 class="font-orbitron text-xl font-bold text-white mb-4 flex items-center">
+                    <i data-lucide="user" class="w-5 h-5 mr-2 text-lime-400"></i>
+                    Profile
+                </h3>
+                <div class="space-y-4">
+                    <div>
+                        <p class="text-gray-400 text-sm">Steam ID</p>
+                        <p id="steam-id" class="text-white font-mono text-sm">Loading...</p>
+                    </div>
+                    <div>
+                        <p class="text-gray-400 text-sm">Member Since</p>
+                        <p id="member-since" class="text-white">Loading...</p>
+                    </div>
+                    <div>
+                        <p class="text-gray-400 text-sm">Last Login</p>
+                        <p id="last-login" class="text-white">Loading...</p>
+                    </div>
+                    <a href="index.html#subscriptions" class="block w-full bg-lime-600 hover:bg-lime-500 text-white font-medium py-3 px-4 rounded-lg transition-colors duration-300 text-center">
+                        Upgrade Subscription
+                    </a>
+                </div>
+            </div>
+
+            <!-- Game Stats -->
+            <div class="lg:col-span-2 glass-card rounded-lg p-6">
+                <h3 class="font-orbitron text-xl font-bold text-white mb-4 flex items-center">
+                    <i data-lucide="bar-chart" class="w-5 h-5 mr-2 text-lime-400"></i>
+                    Game Statistics
+                </h3>
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="bg-gray-800 rounded-lg p-4">
+                        <p class="text-gray-400 text-sm mb-1">Vehicles Owned</p>
+                        <p id="vehicles-owned" class="font-orbitron text-2xl font-bold text-white">0</p>
+                    </div>
+                    <div class="bg-gray-800 rounded-lg p-4">
+                        <p class="text-gray-400 text-sm mb-1">Properties Owned</p>
+                        <p id="properties-owned" class="font-orbitron text-2xl font-bold text-white">0</p>
+                    </div>
+                    <div class="bg-gray-800 rounded-lg p-4">
+                        <p class="text-gray-400 text-sm mb-1">Jobs Completed</p>
+                        <p id="jobs-completed" class="font-orbitron text-2xl font-bold text-white">0</p>
+                    </div>
+                    <div class="bg-gray-800 rounded-lg p-4">
+                        <p class="text-gray-400 text-sm mb-1">Total Spent</p>
+                        <p id="total-spent" class="font-orbitron text-2xl font-bold text-white">$0</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="mt-8 glass-card rounded-lg p-6">
+            <h3 class="font-orbitron text-xl font-bold text-white mb-4">Quick Actions</h3>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <a href="https://discord.gg/XPfSkGYgyB" class="flex items-center justify-center bg-gray-800 hover:bg-gray-700 text-white py-4 px-6 rounded-lg transition-colors duration-300">
+                    <i data-lucide="message-circle" class="w-5 h-5 mr-2"></i>
+                    Join Discord
+                </a>
+                <a href="index.html#rules" class="flex items-center justify-center bg-gray-800 hover:bg-gray-700 text-white py-4 px-6 rounded-lg transition-colors duration-300">
+                    <i data-lucide="book-open" class="w-5 h-5 mr-2"></i>
+                    View Rules
+                </a>
+                <a href="index.html#support" class="flex items-center justify-center bg-gray-800 hover:bg-gray-700 text-white py-4 px-6 rounded-lg transition-colors duration-300">
+                    <i data-lucide="help-circle" class="w-5 h-5 mr-2"></i>
+                    Get Support
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div id="loading-overlay" class="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50">
+        <div class="text-center">
+            <div class="inline-block animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-lime-400 mb-4"></div>
+            <p class="text-white text-lg font-semibold">Loading Dashboard...</p>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            lucide.createIcons();
+
+            const loadingOverlay = document.getElementById('loading-overlay');
+
+            // Check authentication
+            try {
+                const authResponse = await fetch('http://localhost:3000/auth/status', {
+                    credentials: 'include'
+                });
+
+                const authData = await authResponse.json();
+                
+                if (!authResponse.ok || !authData.authenticated) {
+                    window.location.href = 'login-page.html';
+                    return;
+                }
+
+                const user = authData.user;
+
+                // Update user info in navbar
+                document.getElementById('user-avatar').src = user.avatar_url || 'https://via.placeholder.com/150';
+                document.getElementById('user-name').textContent = user.display_name;
+                document.getElementById('steam-id').textContent = user.steam_id;
+
+                // Update subscription info
+                const tierMap = {
+                    'none': { name: 'Free Tier', badge: 'NONE', color: 'bg-gray-700' },
+                    'silver': { name: 'Silver', badge: 'SILVER', color: 'bg-gray-500' },
+                    'gold': { name: 'Gold', badge: 'GOLD', color: 'bg-yellow-500' },
+                    'emerald': { name: 'Emerald', badge: 'EMERALD', color: 'bg-lime-500' }
+                };
+
+                const tier = tierMap[user.subscription_tier] || tierMap['none'];
+                document.getElementById('tier-name').textContent = tier.name;
+                document.getElementById('tier-badge').textContent = tier.badge;
+                document.getElementById('tier-badge').className = `px-3 py-1 rounded-full text-xs font-bold ${tier.color} text-white`;
+                document.getElementById('queue-priority').textContent = user.queue_priority || 0;
+
+                // Fetch user profile
+                const profileResponse = await fetch('http://localhost:3000/api/user/profile', {
+                    credentials: 'include'
+                });
+
+                if (profileResponse.ok) {
+                    const profileData = await profileResponse.json();
+                    const profile = profileData.user;
+
+                    // Update whitelist status
+                    const whitelistStatus = document.getElementById('whitelist-status');
+                    const whitelistIcon = document.getElementById('whitelist-icon');
+                    
+                    if (profile.is_whitelisted) {
+                        whitelistStatus.textContent = 'Whitelisted';
+                        whitelistStatus.className = 'font-orbitron text-2xl font-bold text-lime-400';
+                        whitelistIcon.className = 'text-lime-400';
+                        whitelistIcon.innerHTML = '<i data-lucide="shield-check" class="w-8 h-8"></i>';
+                    } else {
+                        whitelistStatus.textContent = 'Not Whitelisted';
+                        whitelistStatus.className = 'font-orbitron text-2xl font-bold text-red-400';
+                        whitelistIcon.className = 'text-red-400';
+                        whitelistIcon.innerHTML = '<i data-lucide="shield-x" class="w-8 h-8"></i>';
+                    }
+                    lucide.createIcons(); // Re-initialize icons
+
+                    // Format dates
+                    const formatDate = (dateString) => {
+                        return new Date(dateString).toLocaleDateString('en-US', {
+                            year: 'numeric',
+                            month: 'long',
+                            day: 'numeric'
+                        });
+                    };
+
+                    document.getElementById('member-since').textContent = formatDate(profile.created_at);
+                    document.getElementById('last-login').textContent = formatDate(profile.last_login);
+                }
+
+                // Fetch user stats
+                const statsResponse = await fetch('http://localhost:3000/api/user/stats', {
+                    credentials: 'include'
+                });
+
+                if (statsResponse.ok) {
+                    const statsData = await statsResponse.json();
+                    const stats = statsData.stats;
+
+                    document.getElementById('playtime').textContent = `${Math.round(stats.playtime_hours || 0)}h`;
+                    document.getElementById('vehicles-owned').textContent = stats.vehicles_owned || 0;
+                    document.getElementById('properties-owned').textContent = stats.properties_owned || 0;
+                    document.getElementById('jobs-completed').textContent = stats.jobs_completed || 0;
+                    document.getElementById('total-spent').textContent = `$${(stats.total_spent || 0).toLocaleString()}`;
+                }
+
+                // Hide loading overlay
+                loadingOverlay.classList.add('hidden');
+
+            } catch (error) {
+                console.error('Error loading dashboard:', error);
+                alert('Failed to load dashboard. Please try again.');
+                window.location.href = 'login-page.html';
+            }
+
+            // Logout handler
+            document.getElementById('logout-btn').addEventListener('click', async () => {
+                try {
+                    await fetch('http://localhost:3000/auth/logout', {
+                        credentials: 'include'
+                    });
+                    window.location.href = 'index.html';
+                } catch (error) {
+                    console.error('Logout error:', error);
+                    window.location.href = 'index.html';
+                }
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Dream City RP</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+    
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0a0a0a;
+        }
+        
+        h1, h2, h3, h4, h5, h6, .font-orbitron {
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #111827;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #84cc16;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #a3e635;
+        }
+
+        .glass-card {
+            background: rgba(17, 24, 39, 0.8);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(132, 204, 22, 0.2);
+        }
+
+        .steam-button {
+            background: linear-gradient(135deg, #1b2838 0%, #2a475e 100%);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .steam-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+            transition: left 0.5s;
+        }
+
+        .steam-button:hover::before {
+            left: 100%;
+        }
+
+        .steam-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(132, 204, 22, 0.3);
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .float-animation {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes glow {
+            0%, 100% {
+                box-shadow: 0 0 20px rgba(132, 204, 22, 0.3), 0 0 40px rgba(132, 204, 22, 0.2);
+            }
+            50% {
+                box-shadow: 0 0 30px rgba(132, 204, 22, 0.5), 0 0 60px rgba(132, 204, 22, 0.3);
+            }
+        }
+
+        .glow-effect {
+            animation: glow 3s ease-in-out infinite;
+        }
+
+        .particle {
+            position: absolute;
+            background: #84cc16;
+            border-radius: 50%;
+            opacity: 0.6;
+            animation: particle-float 15s infinite;
+        }
+
+        @keyframes particle-float {
+            0% {
+                transform: translateY(100vh) translateX(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.6;
+            }
+            90% {
+                opacity: 0.6;
+            }
+            100% {
+                transform: translateY(-100vh) translateX(100px);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-950 text-gray-100 min-h-screen flex items-center justify-center relative overflow-hidden">
+    
+    <!-- Animated Background Particles -->
+    <div class="absolute inset-0 overflow-hidden pointer-events-none">
+        <div class="particle" style="left: 10%; width: 4px; height: 4px; animation-delay: 0s;"></div>
+        <div class="particle" style="left: 20%; width: 6px; height: 6px; animation-delay: 2s;"></div>
+        <div class="particle" style="left: 30%; width: 3px; height: 3px; animation-delay: 4s;"></div>
+        <div class="particle" style="left: 40%; width: 5px; height: 5px; animation-delay: 1s;"></div>
+        <div class="particle" style="left: 50%; width: 4px; height: 4px; animation-delay: 3s;"></div>
+        <div class="particle" style="left: 60%; width: 6px; height: 6px; animation-delay: 5s;"></div>
+        <div class="particle" style="left: 70%; width: 3px; height: 3px; animation-delay: 2.5s;"></div>
+        <div class="particle" style="left: 80%; width: 5px; height: 5px; animation-delay: 4.5s;"></div>
+        <div class="particle" style="left: 90%; width: 4px; height: 4px; animation-delay: 1.5s;"></div>
+    </div>
+
+    <!-- Background Glow Effects -->
+    <div class="absolute top-20 left-20 w-96 h-96 bg-lime-600 rounded-full opacity-10 blur-3xl"></div>
+    <div class="absolute bottom-20 right-20 w-96 h-96 bg-emerald-500 rounded-full opacity-10 blur-3xl"></div>
+
+    <!-- Back to Home Button -->
+    <a href="index.html" class="absolute top-6 left-6 flex items-center text-gray-400 hover:text-lime-400 transition-colors duration-300 z-10">
+        <i data-lucide="arrow-left" class="w-5 h-5 mr-2"></i>
+        <span class="font-medium">Back to Home</span>
+    </a>
+
+    <!-- Main Login Card -->
+    <div class="glass-card rounded-2xl shadow-2xl p-8 md:p-12 max-w-md w-full mx-4 relative z-10 glow-effect">
+        
+        <!-- Logo and Title -->
+        <div class="text-center mb-8">
+            <div class="flex justify-center mb-6">
+                <img src="dc-logo.png" alt="Dream City RP Logo" class="h-20 w-20 float-animation">
+            </div>
+            <h1 class="font-orbitron text-3xl font-bold text-white uppercase mb-2">
+                <span class="text-lime-400">Dream</span>City RP
+            </h1>
+            <p class="text-gray-400 text-sm">Sign in to access your account</p>
+        </div>
+
+        <!-- Divider -->
+        <div class="relative mb-8">
+            <div class="absolute inset-0 flex items-center">
+                <div class="w-full border-t border-gray-700"></div>
+            </div>
+            <div class="relative flex justify-center text-sm">
+                <span class="px-4 bg-gray-800 text-gray-400 rounded-full">Authenticate with</span>
+            </div>
+        </div>
+
+        <!-- Steam Login Button -->
+        <button id="steam-login-btn" class="steam-button w-full flex items-center justify-center py-4 px-6 rounded-lg text-white font-semibold text-lg shadow-lg hover:shadow-xl transition-all duration-300 mb-6">
+            <svg class="w-8 h-8 mr-3" viewBox="0 0 256 256" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M127.999 0C57.421 0 0 57.42 0 127.999c0 61.104 42.933 112.175 100.355 124.906l34.022-49.632c-8.516-4.297-15.269-11.556-18.899-20.538l-35.932 14.481c-15.155-6.076-25.907-20.738-25.907-37.916 0-22.564 18.297-40.861 40.861-40.861 3.806 0 7.486.522 10.98 1.498l36.468-52.956c24.394 1.774 46.366 11.556 62.738 26.711L256 128c0-70.579-57.421-128-128.001-128z" fill="currentColor"/>
+                <path d="M161.935 139.097c-15.155 0-27.481 12.326-27.481 27.481s12.326 27.481 27.481 27.481c15.155 0 27.481-12.326 27.481-27.481s-12.326-27.481-27.481-27.481zm0 44.962c-9.643 0-17.481-7.838-17.481-17.481s7.838-17.481 17.481-17.481 17.481 7.838 17.481 17.481-7.838 17.481-17.481 17.481z" fill="currentColor"/>
+            </svg>
+            <span>Sign in with Steam</span>
+        </button>
+
+        <!-- Info Text -->
+        <div class="text-center space-y-3">
+            <p class="text-xs text-gray-500">
+                By signing in, you agree to our Terms of Service and Privacy Policy
+            </p>
+            <div class="flex items-center justify-center text-lime-400 text-sm">
+                <i data-lucide="shield-check" class="w-4 h-4 mr-2"></i>
+                <span>Secure Steam Authentication</span>
+            </div>
+        </div>
+
+        <!-- Features List -->
+        <div class="mt-8 pt-8 border-t border-gray-700">
+            <h3 class="font-orbitron text-sm font-bold text-gray-300 uppercase mb-4 text-center">Member Benefits</h3>
+            <ul class="space-y-3 text-sm text-gray-400">
+                <li class="flex items-start">
+                    <i data-lucide="check-circle" class="w-5 h-5 text-lime-400 mr-3 flex-shrink-0 mt-0.5"></i>
+                    <span>Access to exclusive server features</span>
+                </li>
+                <li class="flex items-start">
+                    <i data-lucide="check-circle" class="w-5 h-5 text-lime-400 mr-3 flex-shrink-0 mt-0.5"></i>
+                    <span>Track your in-game progress and stats</span>
+                </li>
+                <li class="flex items-start">
+                    <i data-lucide="check-circle" class="w-5 h-5 text-lime-400 mr-3 flex-shrink-0 mt-0.5"></i>
+                    <span>Manage subscriptions and purchases</span>
+                </li>
+                <li class="flex items-start">
+                    <i data-lucide="check-circle" class="w-5 h-5 text-lime-400 mr-3 flex-shrink-0 mt-0.5"></i>
+                    <span>Connect with the community</span>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div id="loading-overlay" class="hidden fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50">
+        <div class="text-center">
+            <div class="inline-block animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-lime-400 mb-4"></div>
+            <p class="text-white text-lg font-semibold">Connecting to Steam...</p>
+            <p class="text-gray-400 text-sm mt-2">Please wait while we authenticate your account</p>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Initialize Lucide icons
+            lucide.createIcons();
+
+            const steamLoginBtn = document.getElementById('steam-login-btn');
+            const loadingOverlay = document.getElementById('loading-overlay');
+
+            // Steam login handler
+            steamLoginBtn.addEventListener('click', async () => {
+                try {
+                    // Show loading overlay
+                    loadingOverlay.classList.remove('hidden');
+
+                    // Redirect to backend Steam auth endpoint
+                    window.location.href = 'http://localhost:3000/auth/steam';
+                } catch (error) {
+                    console.error('Login error:', error);
+                    loadingOverlay.classList.add('hidden');
+                    alert('Failed to connect to authentication server. Please try again.');
+                }
+            });
+
+            // Check if user is already logged in
+            checkAuthStatus();
+
+            async function checkAuthStatus() {
+                try {
+                    const response = await fetch('http://localhost:3000/auth/status', {
+                        credentials: 'include'
+                    });
+                    
+                    if (response.ok) {
+                        const data = await response.json();
+                        if (data.authenticated) {
+                            // User is already logged in, redirect to dashboard
+                            window.location.href = 'dashboard.html';
+                        }
+                    }
+                } catch (error) {
+                    // Server not running or user not authenticated
+                    console.log('Not authenticated or server not available');
+                }
+            }
+        });
+    </script>
+</body>
+</html>

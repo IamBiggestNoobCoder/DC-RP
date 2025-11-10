@@ -1,0 +1,1012 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dream City RP - GTA V Roleplay Server</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+    
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0a0a0a; 
+        }
+        
+        h1, h2, h3, h4, h5, h6, .font-orbitron {
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #111827; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #84cc16; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #a3e635; 
+        }
+
+        .glass-nav {
+            background-color: rgba(17, 24, 39, 0.75); 
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(55, 65, 81, 0.5); 
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes pulseGlow {
+            0%, 100% {
+                transform: scale(1);
+                box-shadow: 0 0 10px #84cc16, 0 0 20px #84cc16, 0 0 30px #84cc16; 
+            }
+            50% {
+                transform: scale(1.05);
+                box-shadow: 0 0 20px #a3e635, 0 0 30px #a3e635, 0 0 40px #a3e635; 
+            }
+        }
+        
+        .animate-fade-in-up {
+            opacity: 0; 
+        }
+        
+        .animate-fade-in-up.is-visible {
+            animation: fadeInUp 1s ease-out forwards;
+        }
+        
+        .pulse-glow-button {
+            animation: pulseGlow 2.5s infinite ease-in-out;
+        }
+    </style>
+</head>
+<body class="bg-gray-950 text-gray-100 overflow-x-hidden">
+
+    <audio id="background-music" src="test-music.mp3" loop></audio>
+
+    <nav id="navbar" class="glass-nav fixed top-0 left-0 right-0 z-50 w-full transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <a href="#" class="flex-shrink-0 flex items-center">
+                    <img src="dc-logo.png" alt="Dream City RP Logo" class="h-10 w-10 mr-3">
+                    <h1 class="font-orbitron text-2xl font-bold text-white uppercase tracking-wider">
+                        <span class="text-lime-400">Dream</span>City
+                    </h1>
+                </a>
+                
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#home" class="text-gray-300 hover:text-lime-400 transition-colors duration-300 px-3 py-2 rounded-md text-sm font-medium">Home</a>
+                    
+                    <div class="relative" id="dropdown-container">
+                        <button id="dropdown-button" class="text-gray-300 hover:text-lime-400 transition-colors duration-300 px-3 py-2 rounded-md text-sm font-medium flex items-center">
+                            Community
+                            <svg class="ml-1 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                            </svg>
+                        </button>
+                        <div id="dropdown-menu" class="hidden absolute z-10 mt-2 w-48 rounded-md shadow-lg py-1 bg-gray-800 ring-1 ring-black ring-opacity-5">
+                            <a href="#discord" class="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700 hover:text-lime-400">Discord</a>
+                        </div>
+                    </div>
+                    
+                    <a href="#rules" id="open-rules-nav" class="text-gray-300 hover:text-lime-400 transition-colors duration-300 px-3 py-2 rounded-md text-sm font-medium">Rules</a>
+                    <a href="#support" class="text-gray-300 hover:text-lime-400 transition-colors duration-300 px-3 py-2 rounded-md text-sm font-medium">Support</a>
+                    <a href="#subscriptions" class="text-gray-300 hover:text-lime-400 transition-colors duration-300 px-3 py-2 rounded-md text-sm font-medium">Subscriptions</a>
+                </div>
+
+                <div class="flex items-center">
+                    <!-- Login/User Button with Dropdown -->
+                    <div class="relative" id="user-dropdown-container">
+                        <a href="login-page.html" id="user-button" class="hidden md:flex items-center bg-lime-600 hover:bg-lime-500 text-white font-medium py-2 px-4 rounded-lg transition-colors duration-300 mr-2">
+                            <i data-lucide="user" class="w-4 h-4 mr-2"></i>
+                            <span id="user-button-text">Login</span>
+                        </a>
+                        <!-- User Dropdown Menu (shown when logged in) -->
+                        <div id="user-dropdown-menu" class="hidden absolute right-0 z-10 mt-2 w-48 rounded-md shadow-lg py-1 bg-gray-800 ring-1 ring-black ring-opacity-5">
+                            <a href="dashboard.html" class="flex items-center px-4 py-2 text-sm text-gray-300 hover:bg-gray-700 hover:text-lime-400">
+                                <i data-lucide="layout-dashboard" class="w-4 h-4 mr-2"></i>
+                                Dashboard
+                            </a>
+                            <a href="#whitelist" class="flex items-center px-4 py-2 text-sm text-gray-300 hover:bg-gray-700 hover:text-lime-400">
+                                <i data-lucide="shield-check" class="w-4 h-4 mr-2"></i>
+                                Whitelist Form
+                            </a>
+                            <div class="border-t border-gray-700 my-1"></div>
+                            <a href="#" id="logout-button" class="flex items-center px-4 py-2 text-sm text-red-400 hover:bg-gray-700 hover:text-red-300">
+                                <i data-lucide="log-out" class="w-4 h-4 mr-2"></i>
+                                Logout
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <button id="music-toggle" class="p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-lime-500 mr-2">
+                        <span class="sr-only">Toggle Music</span>
+                        <div id="music-icon-on">
+                            <i data-lucide="music-4"></i>
+                        </div>
+                        <div id="music-icon-off" class="hidden">
+                            <i data-lucide="music-off"></i>
+                        </div>
+                    </button>
+                    
+                    <div class="md:hidden">
+                        <button id="mobile-menu-button" type="button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-lime-500" aria-controls="mobile-menu" aria-expanded="false">
+                            <span class="sr-only">Open main menu</span>
+                            <i id="menu-icon-open" data-lucide="menu" class="block h-6 w-6"></i>
+                            <i id="menu-icon-close" data-lucide="x" class="hidden h-6 w-6"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="hidden md:hidden" id="mobile-menu">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="#home" class="text-gray-300 hover:bg-gray-700 hover:text-lime-400 block px-3 py-2 rounded-md text-base font-medium">Home</a>
+                <a href="#discord" class="text-gray-300 hover:bg-gray-700 hover:text-lime-400 block px-3 py-2 rounded-md text-base font-medium">Discord</a>
+                <a href="#rules" id="open-rules-mobile" class="text-gray-300 hover:bg-gray-700 hover:text-lime-400 block px-3 py-2 rounded-md text-base font-medium">Rules</a>
+                <a href="#support" class="text-gray-300 hover:bg-gray-700 hover:text-lime-400 block px-3 py-2 rounded-md text-base font-medium">Support</a>
+                <a href="#donate" class="bg-lime-600 hover:bg-lime-500 text-white block px-3 py-2 rounded-md text-base font-medium">Donate</a>
+                <a href="#subscriptions" class="bg-lime-600 hover:bg-lime-500 text-white block px-3 py-2 rounded-md text-base font-medium">Subscriptions</a>
+                <a href="login-page.html" id="mobile-user-button" class="bg-lime-600 hover:bg-lime-500 text-white block px-3 py-2 rounded-md text-base font-medium">
+                    <span id="mobile-user-button-text">Login</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <section id="home" class="min-h-screen flex items-center justify-center text-center relative overflow-hidden px-4" 
+             style="background: linear-gradient(rgba(10, 10, 10, 0.8), rgba(10, 10, 10, 0.8)), url('dc-board.png') no-repeat center center/cover;">
+        <div class="z-10">
+            <h2 class="text-xl md:text-2xl font-semibold text-lime-400 uppercase tracking-widest animate-fade-in-up" style="animation-delay: 0.2s;">Welcome to</h2>
+            <h1 class="font-orbitron text-5xl sm:text-7xl md:text-8xl font-bold my-4 text-white uppercase animate-fade-in-up" style="animation-delay: 0.4s;">
+                <span class="text-lime-400">Dream</span>City
+            </h1>
+            <p class="text-lg md:text-2xl text-gray-300 max-w-2xl mx-auto mb-10 animate-fade-in-up" style="animation-delay: 0.6s;">
+                Your new reality awaits. Dive into the most immersive GTA V roleplay experience.
+            </p>
+            <a href="https://discord.gg/SDuT26Zjf9" id="join-now-button" class="pulse-glow-button font-orbitron text-lg font-bold text-white bg-lime-600 py-4 px-10 rounded-lg shadow-lg uppercase tracking-wider transition-all duration-300 animate-fade-in-up" style="animation-delay: 0.8s;">
+                Join Now
+            </a>
+        </div>
+        <div class="absolute -bottom-20 -left-20 w-60 h-60 bg-lime-600 rounded-full opacity-20 blur-3xl animate-pulse"></div>
+        <div class="absolute -top-20 -right-20 w-72 h-72 bg-emerald-500 rounded-full opacity-20 blur-3xl animate-pulse" style="animation-delay: 2s;"></div>
+    </section>
+
+    <section id="features" class="py-24 bg-gray-900">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="font-orbitron text-4xl font-bold text-white uppercase animate-fade-in-up">Server Features</h2>
+                <p class="text-lg text-gray-400 mt-4 animate-fade-in-up" style="animation-delay: 0.2s;">What makes our city unique.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-gray-800 p-8 rounded-lg shadow-xl border border-gray-700 transform hover:scale-105 transition-transform duration-300 animate-fade-in-up" style="animation-delay: 0.4s;">
+                    <div class="text-lime-400 mb-4">
+                        <i data-lucide="car" class="w-12 h-12"></i>
+                    </div>
+                    <h3 class="font-orbitron text-2xl font-bold text-white mb-3">Custom Vehicles</h3>
+                    <p class="text-gray-400">Hundreds of custom, high-quality vehicles for import and local markets.</p>
+                </div>
+                
+                <div class="bg-gray-800 p-8 rounded-lg shadow-xl border border-gray-700 transform hover:scale-105 transition-transform duration-300 animate-fade-in-up" style="animation-delay: 0.6s;">
+                    <div class="text-lime-400 mb-4">
+                        <i data-lucide="briefcase" class="w-12 h-12"></i>
+                    </div>
+                    <h3 class="font-orbitron text-2xl font-bold text-white mb-3">Player-Owned Business</h3>
+                    <p class="text-gray-400">Run your own nightclub, mechanic shop, or restaurant. The economy is in your hands.</p>
+                </div>
+                
+                <div class="bg-gray-800 p-8 rounded-lg shadow-xl border border-gray-700 transform hover:scale-105 transition-transform duration-300 animate-fade-in-up" style="animation-delay: 0.8s;">
+                    <div class="text-lime-400 mb-4">
+                        <i data-lucide="shield-check" class="w-12 h-12"></i>
+                    </div>
+                    <h3 class="font-orbitron text-2xl font-bold text-white mb-3">Active Staff & PD</h3>
+                    <p class="text-gray-400">Dedicated staff and trained LSPD/EMS ensure fair and immersive scenarios.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="subscriptions" class="py-24 bg-gray-950"> <!-- subscriptions-->
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="font-orbitron text-4xl font-bold text-white uppercase animate-fade-in-up">Subscriptions</h2>
+                <p class="text-lg text-gray-400 mt-4 animate-fade-in-up" style="animation-delay: 0.2s;">
+                    Choose your membership and get many benefits to use in the city.
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
+                
+                <!-- Card 1: Silver (Base) -->
+                <div class="bg-gray-800 p-8 rounded-lg shadow-xl border border-gray-700 transform hover:scale-105 transition-transform duration-300 animate-fade-in-up" style="animation-delay: 0.4s;">
+                    <img src="https://placehold.co/100x100/6b7280/ffffff/png?text=Silver" alt="Silver Tier" class="h-24 mx-auto mb-6 rounded-md">
+                    <h3 class="font-orbitron text-3xl font-bold text-gray-300 text-center uppercase">Silver</h3>
+                    <ul class="text-gray-400 my-6 space-y-3">
+                        <li class="flex items-start"><i data-lucide="check" class="w-5 h-5 text-lime-400 mr-2 flex-shrink-0 mt-1"></i><span>+10 Queue Priority (Stacks With Other Sources)</span></li>
+                        <li class="flex items-start"><i data-lucide="check" class="w-5 h-5 text-lime-400 mr-2 flex-shrink-0 mt-1"></i><span>Unique Role/Badge for Silver Username on Site, Discord</span></li>
+                        <li class="flex items-start"><i data-lucide="check" class="w-5 h-5 text-lime-400 mr-2 flex-shrink-0 mt-1"></i><span>1x EDM car of tier 1</span></li>
+                    </ul>
+                    <p class="text-xs text-gray-500 mb-6 h-16">This priority is usable only on Dream City India RP Allowlisted Server with a valid Allowlisting Role.</p>
+                    <div class="text-center mt-auto">
+                        <p class="text-sm text-gray-400 uppercase">Price</p>
+                        <p class="font-orbitron text-4xl font-bold text-white my-2">$10 USD</p>
+                        <a href="#" class="inline-block w-full bg-gray-600 hover:bg-gray-500 text-white font-medium py-3 px-6 rounded-lg transition-colors duration-300">Subscribe</a>
+                    </div>
+                </div>
+
+                <!-- Card 2: Gold (Highlighted) -->
+                <div class="relative bg-gray-800 p-8 rounded-lg shadow-2xl border-2 border-yellow-400 transform md:scale-105 transition-transform duration-300 animate-fade-in-up" style="animation-delay: 0.6s;">
+                    <div class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-4">
+                        <span class="bg-yellow-400 text-gray-900 text-sm font-bold uppercase px-4 py-1 rounded-full shadow-lg">Most Popular</span>
+                    </div>
+                    <img src="https://placehold.co/100x100/f59e0b/ffffff/png?text=Gold" alt="Gold Tier" class="h-24 mx-auto mb-6 mt-6 rounded-md">
+                    <h3 class="font-orbitron text-3xl font-bold text-yellow-300 text-center uppercase">Gold</h3>
+                    <ul class="text-gray-300 my-6 space-y-3">
+                        <li class="flex items-start"><i data-lucide="check" class="w-5 h-5 text-yellow-300 mr-2 flex-shrink-0 mt-1"></i><span>+14 Queue Priority (Stacks With Other Sources)</span></li>
+                        <li class="flex items-start"><i data-lucide="check" class="w-5 h-5 text-yellow-300 mr-2 flex-shrink-0 mt-1"></i><span>Unique Badge for Gold Username on Site & Discord</span></li>
+                        <li class="flex items-start"><i data-lucide="check" class="w-5 h-5 text-yellow-300 mr-2 flex-shrink-0 mt-1"></i><span>1x EDM car of tier 1</span></li>
+                        <li class="flex items-start"><i data-lucide="check" class="w-5 h-5 text-yellow-300 mr-2 flex-shrink-0 mt-1"></i><span>1x EDM car of tier 2</span></li>
+                    </ul>
+                    <p class="text-xs text-gray-400 mb-6 h-16">This priority is usable only on Dream City India RP Allowlisted Server with a valid Allowlisting Role.</p>
+                    <div class="text-center mt-auto">
+                        <p class="text-sm text-gray-400 uppercase">Price</p>
+                        <p class="font-orbitron text-4xl font-bold text-white my-2">$14 USD</p>
+                        <a href="#" class="inline-block w-full bg-yellow-500 hover:bg-yellow-400 text-gray-900 font-medium py-3 px-6 rounded-lg transition-colors duration-300">Subscribe</a>
+                    </div>
+                </div>
+
+                <!-- Card 3: Emerald (Site Theme) -->
+                <div class="bg-gray-800 p-8 rounded-lg shadow-xl border border-gray-700 transform hover:scale-105 transition-transform duration-300 animate-fade-in-up" style="animation-delay: 0.8s;">
+                    <img src="https://placehold.co/100x100/84cc16/1f2937/png?text=Emerald" alt="Emerald Tier" class="h-24 mx-auto mb-6 rounded-md">
+                    <h3 class="font-orbitron text-3xl font-bold text-lime-400 text-center uppercase">Emerald</h3>
+                    <ul class="text-gray-400 my-6 space-y-3">
+                        <li class="flex items-start"><i data-lucide="check" class="w-5 h-5 text-lime-400 mr-2 flex-shrink-0 mt-1"></i><span>+25 Queue Priority (Stacks With Other Sources)</span></li>
+                        <li class="flex items-start"><i data-lucide="check" class="w-5 h-5 text-lime-400 mr-2 flex-shrink-0 mt-1"></i><span>Unique Badge for Emerald Username on Site & Discord</span></li>
+                        <li class="flex items-start"><i data-lucide="check" class="w-5 h-5 text-lime-400 mr-2 flex-shrink-0 mt-1"></i><span>1x EDM car of tier 1</span></li>
+                        <li class="flex items-start"><i data-lucide="check" class="w-5 h-5 text-lime-400 mr-2 flex-shrink-0 mt-1"></i><span>1x EDM car of tier 2</span></li>
+                        <li class="flex items-start"><i data-lucide="check" class="w-5 h-5 text-lime-400 mr-2 flex-shrink-0 mt-1"></i><span>1x EDM car of tier 3</span></li>
+                    </ul>
+                    <p class="text-xs text-gray-500 mb-6 h-16">This priority is usable only on Dream City India RP Allowlisted Server with a valid Allowlisting Role.</p>
+                    <div class="text-center mt-auto">
+                        <p class="text-sm text-gray-400 uppercase">Price</p>
+                        <p class="font-orbitron text-4xl font-bold text-white my-2">$25 USD</p>
+                        <a href="#" class="inline-block w-full bg-lime-600 hover:bg-lime-500 text-white font-medium py-3 px-6 rounded-lg transition-colors duration-300">Subscribe</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="discord" class="py-24 bg-gray-950" 
+             style="background: linear-gradient(rgba(132, 204, 22, 0.1), rgba(10, 10, 10, 0.9)), url('dc-bg-discord.jpg') no-repeat center center/cover;">
+        <div class="max-w-4xl mx-auto text-center px-4">
+            <div class="text-lime-400 animate-fade-in-up">
+                <i data-lucide="discord" class="w-20 h-20 mx-auto"></i>
+            </div>
+            <h2 class="font-orbitron text-4xl font-bold text-white mt-6 uppercase animate-fade-in-up" style="animation-delay: 0.2s;">Join our Community</h2>
+            <p class="text-lg text-gray-300 max-w-xl mx-auto my-6 animate-fade-in-up" style="animation-delay: 0.4s;">
+                All our server info, applications, and community events happen on Discord. Get whitelisted and start your story today.
+            </p>
+            <a href="#" class="pulse-glow-button font-orbitron text-lg font-bold text-white bg-lime-600 py-4 px-10 rounded-lg shadow-lg uppercase tracking-wider transition-all duration-300 animate-fade-in-up" style="animation-delay: 0.6s;">
+                Get Discord Invite
+            </a>
+        </div>
+    </section>
+
+    <section id="support" class="py-24 bg-gray-900">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                <div class="animate-fade-in-up" style="animation-delay: 0.2s;">
+                    <h2 class="font-orbitron text-4xl font-bold text-white uppercase">Need Support?</h2>
+                    <p class="text-lg text-gray-400 mt-4 mb-6">
+                        Got an issue in-game? Need help with your application? Our staff is ready to help. Open a support ticket on our Discord for the fastest response.
+                    </p>
+                    <a href="#discord" class="inline-block font-orbitron text-md font-bold text-lime-400 bg-gray-800 hover:bg-gray-700 py-3 px-8 rounded-lg shadow-lg uppercase tracking-wider transition-all duration-300">
+                        Open Ticket
+                    </a>
+                </div>
+                
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="py-10 bg-gray-950 border-t border-gray-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-gray-500">
+            <p>&copy; 2025 Dream City RP. All rights reserved.</p>
+            <p class="text-sm mt-1">Dream City RP is not affiliated with Rockstar Games or Take-Two Interactive.</p>
+        </div>
+    </footer>
+
+
+    <div id="rules-modal-overlay" class="fixed inset-0 bg-black bg-opacity-80 z-50 hidden transition-opacity duration-300"></div>
+    <div id="rules-modal" class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-11/12 max-w-3xl bg-gray-800 rounded-lg shadow-2xl z-50 hidden transform transition-all duration-300 scale-95 opacity-0">
+        <div class="flex items-center justify-between p-6 border-b border-gray-700">
+            <h2 class="font-orbitron text-2xl font-bold text-white uppercase">Server Rulebook</h2>
+            <button id="close-rules-modal" class="text-gray-400 hover:text-white transition-colors">
+                <i data-lucide="x" class="w-8 h-8"></i>
+            </button>
+        </div>
+        
+        <div class="p-8 max-h-[70vh] overflow-y-auto" style="scrollbar-width: thin; scrollbar-color: #84cc16 #1f2937;">
+            <div class="prose prose-invert max-w-none text-gray-300 space-y-6">
+                
+                <div>
+                    <h3 class="font-orbitron text-lime-400">Support Rules</h3>
+                    <div class="space-y-4 text-gray-300">
+                        <h4 class="font-orbitron text-lg text-white">1. Follow Staff Decisions</h4>
+                        <p>The decision taken by staff should be followed at all times. Counter-intuitive questions regarding staff decisions are null & void. You are not allowed to seek interactions with higher management for relief from bans or staff actions. Every staff member is considered qualified and their decisions should be respected. Abusive behavior towards staff will not be tolerated. Comply respectfully with staff in all decisions.</p>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="font-orbitron text-lime-400">Voice Communication</h3>
+                    <div class="space-y-4 text-gray-300">
+                        <h4 class="font-orbitron text-lg text-white">1. Microphone & Headset</h4>
+                        <p>Players are required to use a good quality, functioning microphone and headset to ensure clear communication during roleplay.</p>
+                        
+                        <h4 class="font-orbitron text-lg text-white">2. No External Communication</h4>
+                        <p>Players must not use external communication platforms (Discord, Zoom, etc.) to interact with others while actively playing on the server.</p>
+                        
+                        <h4 class="font-orbitron text-lg text-white">3. Voice Behaviour</h4>
+                        <p>Out-of-character offensive language, threats, or racism are strictly prohibited. Any form of death threat toward real individuals is unacceptable and will lead to serious consequences.</p>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="font-orbitron text-lime-400">No Toxicity</h3>
+                    <div class="space-y-4 text-gray-300">
+                        <h4 class="font-orbitron text-lg text-white">1. Zero Tolerance for Toxicity</h4>
+                        <p>FCRP has a zero-tolerance policy for toxic behaviors across all platforms. Offensive or explicit usernames, racism, trolling, discrimination, homophobia, and sexism will not be tolerated. Treat all members with respect and equality in voice, text, and streams. Publicly criticizing others is not allowed; report violations through proper channels. Content creators must moderate their communities or face consequences.</p>
+                        
+                        <h4 class="font-orbitron text-lg text-white">2. No Derogatory Language</h4>
+                        <p>Using terms like "weird" or "strange" or any similar derogatory words to insult or demean roleplay is unacceptable.</p>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="font-orbitron text-lime-400">Account</h3>
+                    <div class="space-y-4 text-gray-300">
+                        <h4 class="font-orbitron text-lg text-white">1. Account Responsibility</h4>
+                        <p>You are solely responsible for all actions taken through your account. Keep it secure and follow community guidelines. If your account is hacked, compromised, or transferred (for example, using a different Steam, GTA, or Discord account), FCRP will not be responsible for any issues arising from it.</p>
+                        
+                        <h4 class="font-orbitron text-lg text-white">2. No Account Sharing / Trading</h4>
+                        <p>Account sharing, buying, or selling (including valuables) is strictly prohibited unless done through official channels approved by the server owner. Unauthorized transactions can result in scams, bans, or permanent character death.</p>
+                        
+                        <h4 class="font-orbitron text-lg text-white">3. Allowlist Transfers</h4>
+                        <p>If you lose access to your Discord account, we cannot transfer your Allowlist status. You must reapply with a new account.</p>
+                        
+                        <h4 class="font-orbitron text-lg text-white">4. Inactivity</h4>
+                        <p>If you are inactive for more than 30 days, your allowlist role may be removed without prior notice.</p>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="font-orbitron text-lime-400">Donation</h3>
+                    <div class="space-y-4 text-gray-300">
+                        <h4 class="font-orbitron text-lg text-white">1. Donations & Purchases</h4>
+                        <p>All donations and purchases are tied to your specific account and character. Perks must be selected during purchase and cannot be changed once confirmed. Gifting is allowed, meaning a player may purchase perks for another player; however, once the purchase is completed, the perks will remain bound to the recipient’s account. If you are banned, purchases are forfeited and non-refundable. Chargebacks will result in a permanent, non-appealable ban.</p>
+                        
+                        <h4 class="font-orbitron text-lg text-white">2. No Resale or Transfer</h4>
+                        <p>The resale or transfer of purchased items is strictly prohibited. All items are for personal use only.</p>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="font-orbitron text-lime-400">Character</h3>
+                    <div class="space-y-4 text-gray-300">
+                        <h4 class="font-orbitron text-lg text-white">1. Character Separation</h4>
+                        <p>Each character must be completely independent. Characters may not share knowledge, relationships, or connections unless established in roleplay. Cross-character relationships (siblings, cousins, alter egos) are prohibited.</p>
+                        
+                        <h4 class="font-orbitron text-lg text-white">2. Naming Policy</h4>
+                        <p>Character names must be realistic and immersive. Meme, troll, or inappropriate names will be changed or punished. Any names intended to insult, target, or mock other players, streamers, or public figures are strictly prohibited and will not be tolerated.</p>
+                        
+                        <h4 class="font-orbitron text-lg text-white">3. Unique Affiliations</h4>
+                        <p>You cannot have multiple characters in the same gang, group, or faction. Each character must have distinct affiliations and storylines.</p>
+                        
+                        <h4 class="font-orbitron text-lg text-white">4. Inactivity & Property</h4>
+                        <p>Properties (vehicles, homes) can be reclaimed within ~30 days of inactivity. Logging once per week will not reset the inactivity timer.</p>
+                        
+                        <h4 class="font-orbitron text-lg text-white">5. Permanent Death (Perma-Death)</h4>
+                        <p>If a character is declared without a pulse (dead) three or more times, they are permanently dead and cannot be used again.</p>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="font-orbitron text-lime-400">Out-of-Character (OOC)</h3>
+                    <div class="space-y-4 text-gray-300">
+                        <h4 class="font-orbitron text-lg text-white">1. OOC Only in Discord</h4>
+                        <p>OOC conversations are only allowed in Discord—not in-game. Immersion-breaking language is prohibited in-game.</p>
+                        
+                        <h4 class="font-orbitron text-lg text-white">2. No External References</h4>
+                        <p>Do not reference other 'cities' or 'counties' within the community. Avoid terms like 'the government', 'Gods', or 'look to the skies' when referring to staff.</p>
+                        
+                        <h4 class="font-orbitron text-lg text-white">3. Bug Reporting Procedure</h4>
+                        <p>If you encounter a bug or script issue, continue RP and report it later via the proper channels. Do not break character.</p>
+                        
+                        <h4 class="font-orbitron text-lg text-white">4. Immersion & OOC Comments</h4>
+                        <p>Comments like "you must be bored" to police or other RP roles are considered OOC and are not allowed. Avoid terms like key, server, or HP in roleplay; use proper RP terms.</p>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="font-orbitron text-lime-400">Admin Actions via Discord</h3>
+                    <div class="space-y-4 text-gray-300">
+                        <h4 class="font-orbitron text-lg text-white">1. Respond to Admins</h4>
+                        <p>If an admin contacts you regarding a timeout or rule violation, you must respond promptly. Bans will not be lifted until you have communicated with the Ban Team.</p>
+                        
+                        <h4 class="font-orbitron text-lg text-white">2. Acknowledge Admin Messages</h4>
+                        <p>Failure to acknowledge admin messages may result in a Ban until you respond.</p>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="font-orbitron text-lime-400">Stream Sniping</h3>
+                    <div class="space-y-4 text-gray-300">
+                        <h4 class="font-orbitron text-lg text-white">1. No Stream Sniping</h4>
+                        <p>Stream sniping is strictly prohibited. Being present in a streamer’s chat while playing on the server may be considered evidence of stream sniping if a complaint is filed.</p>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="font-orbitron text-lime-400">Character & Fair Play Guidelines</h3>
+                    <div class="space-y-4 text-gray-300">
+                        <h4 class="font-orbitron text-lg text-white">1. Character Age</h4>
+                        <p>All player characters must be 18 years or older. If you have a special backstory or RP concept that requires an exception to this rule, please raise a support ticket for prior approval.</p>
+                        
+                        <h4 class="font-orbitron text-lg text-white">2. No Win-Only Mentality</h4>
+                        <p>Roleplay is a two-way experience — counterplay is essential. Focus on storytelling, not just winning.</p>
+                        
+                        <h4 class="font-orbitron text-lg text-white">3. No AFK Looting</h4>
+                        <p>Killing or robbing AFK players is strictly prohibited. Ensure the other party is present and responsive before hostile actions.</p>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="font-orbitron text-lime-400">Glitching, Exploiting & Game Modifications</h3>
+                    <div class="space-y-4 text-gray-300">
+                        <h4 class="font-orbitron text-lg text-white">1. No Glitching or Exploiting</h4>
+                        <p>Glitching and exploiting client or server bugs is prohibited. Abuse will result in a ban and removal of gained benefits.</p>
+                        
+                        <h4 class="font-orbitron text-lg text-white">2. No Spawn Camping</h4>
+                        <p>Camping animal or vehicle spawns to exploit mechanics is considered exploitation and is banned.</p>
+                        
+                        <h4 class="font-orbitron text-lg text-white">3. No Cheats / Unfair Mods</h4>
+                        <p>Use of modifications or cheats that provide unfair advantages is strictly banned. Visual enhancements that do not grant advantage are allowed.</p>
+                        
+                        <h4 class="font-orbitron text-lg text-white">4. No Macroing</h4>
+                        <p>Macroing (automating actions with third-party software/hardware) is prohibited. Offenders will have property or progress revoked and face bans.</p>
+                        
+                        <h4 class="font-orbitron text-lg text-white">5. No Graphic Advantage Mods</h4>
+                        <p>No shadows or similar graphic modifications that grant unfair advantages are allowed. Shadows must be enabled to maintain fairness.</p>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="font-orbitron text-lime-400">Use of Reports</h3>
+                    <div class="space-y-4 text-gray-300">
+                        <h4 class="font-orbitron text-lg text-white">1. Use Ticket System</h4>
+                        <p>Use the Discord ticketing system to report incidents—past or present. The /report command should be used only for urgent admin assistance. For player/bug reports open a ticket in Discord.</p>
+                        
+                        <h4 class="font-orbitron text-lg text-white">2. Report Requirements</h4>
+                        <p>When submitting a report, provide clear details, timestamps, involved players, and any evidence (screenshots, videos, chat logs). This helps staff investigate accurately.</p>
+                        
+                        <h4 class="font-orbitron text-lg text-white">3. Report Processing</h4>
+                        <p>We aim to process reports within 48 hours; complex cases may take up to a week.</p>
+                        
+                        <h4 class="font-orbitron text-lg text-white">4. Suspected Staff Abuse</h4>
+                        <p>If you suspect staff abuse, submit a report via the Discord ticket system for investigation. Do not message staff privately about community issues—use tickets.</p>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="font-orbitron text-lime-400">Prohibited Roleplay & Topics</h3>
+                    <div class="space-y-4 text-gray-300">
+                        <h4 class="font-orbitron text-lg text-white">1. Strictly Prohibited Roleplay</h4>
+                        <p>Rape, suicide, pregnancy, children, slavery roleplay are strictly prohibited. Also banned: racism, hate speech, slurs, real-life terrorism or threats, and real-life pandemics or mental illness portrayals.</p>
+                        
+                        <h4 class="font-orbitron text-lg text-white">2. Admin Approval Exceptions</h4>
+                        <p>Animal RP may be allowed upon explicit admin approval.</p>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="font-orbitron text-lime-400">Safe Zones</h3>
+                    <div class="space-y-4 text-gray-300">
+                        <h4 class="font-orbitron text-lg text-white">1. Safe Zones</h4>
+                        <p>Designated areas where hostile actions (combat/theft) are prohibited to allow players to interact or perform tasks. Examples: Hospital/Pillbox, Event Areas.</p>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="font-orbitron text-lime-400">Criminal-Leo Interaction</h3>
+                    <div class="space-y-4 text-gray-300">
+                        <h4 class="font-orbitron text-lg text-white">1. Communication</h4>
+                        <p>Arrests and detentions must be done with proper communication and engagement.</p>
+                        
+                        <h4 class="font-orbitron text-lg text-white">2. Kidnapping LEO</h4>
+                        <p>Kidnapping LEOs is allowed only with reasonable RP and not during unrelated LEO scenarios.</p>
+                        
+                        <h4 class="font-orbitron text-lg text-white">3. Kidnapping LEO</h4>
+                        <p>Robbing police officers is not allowed, as they are not considered loot sources. However, if you engage in an RP scenario involving robbing a cop, you are only allowed to take non-police items listed below in permitted items point.</p>
+                        
+                        <h4 class="font-orbitron text-lg text-white">4. Permitted Loot Items</h4>
+                        <p>Permitted Items: Ammunition, IFAKs, Bandages, Armor. Any attempt to steal weapons, police-issued gear, any item which is not listed as Permitted Items or restricted equipment will be considered a rule violation and may lead to disciplinary action.</p>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="font-orbitron text-lime-400">Semi-Safe Zones</h3>
+                    <div class="space-y-4 text-gray-300">
+                        <h4 class="font-orbitron text-lg text-white">1. Semi-Safe Zones</h4>
+                        <p>Semi-safe zones allow limited hostile actions (bar fights, minor disturbances, arrests) provided they do not escalate or negatively impact others. Examples: Police Station, City Hall, PDM, garages, restaurants, bars, cafes, other player-owned businesses.</p>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="font-orbitron text-lime-400">Roleplay Rules & Guide</h3>
+                    <div class="space-y-4 text-gray-300">
+                        <h4 class="font-orbitron text-lg text-white">1. Stay IC</h4>
+                        <p>You must remain in character at all times. RP should only pause if all parties agree or staff requests via Discord ticket.</p>
+                        
+                        <h4 class="font-orbitron text-lg text-white">2. Consent & Communication</h4>
+                        <p>Respect player comfort. If issues arise, discuss OOC in Discord (not in-game).</p>
+                        
+                        <h4 class="font-orbitron text-lg text-white">3. IC Conflict = IC Resolution</h4>
+                        <p>Disagreements during RP must be resolved in-character. If a rule was broken, finish the scene IC and submit a report afterwards.</p>
+                        
+                        <h4 class="font-orbitron text-lg text-white">4. Staff Intervention</h4>
+                        <p>Staff will not ask you to break character in-game but may request a pause via Discord if rules are violated.</p>
+                        
+                        <h4 class="font-orbitron text-lg text-white">5. Roleplay Before Bloodshed</h4>
+                        <p>No RDM or KOS. Violent actions must be preceded by verbal interaction or a clear story build-up; targets must understand the threat before harm occurs.</p>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="font-orbitron text-lime-400">RDM / VDM / Powergaming / Metagaming</h3>
+                    <div class="space-y-4 text-gray-300">
+                        <h4 class="font-orbitron text-lg text-white">1. Random Deathmatch (RDM)</h4>
+                        <p>RDM is intentionally killing or hurting another player or damaging their property without valid IC reason or roleplay justification.</p>
+                        
+                        <h4 class="font-orbitron text-lg text-white">2. Vehicle Deathmatch (VDM)</h4>
+                        <p>VDM is using a vehicle to kill/hurt another player without valid IC justification. Avoid using vehicles as weapons; this may be LQRP.</p>
+                        
+                        <h4 class="font-orbitron text-lg text-white">3. Powergaming</h4>
+                        <p>Powergaming is forcing unrealistic actions/outcomes, exploiting mechanics, or manipulating RP outcomes (e.g., /me abuse, spamming jump to move faster). It's prohibited.</p>
+                        
+                        <h4 class="font-orbitron text-lg text-white">4. No Metagaming</h4>
+                        <p>Using out-of-game information (streams, Discord, etc.) to gain an in-game advantage is serious and punished. Accidental metagaming is discouraged.</p>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="font-orbitron text-lime-400">NLR / Combat Logging / Combat Storing</h3>
+                    <div class="space-y-4 text-gray-300">
+                        <h4 class="font-orbitron text-lg text-white">1. New Life Rule (NLR)</h4>
+                        <p>After incapacitation/respawn you forget events leading to death. Do not return to the scene for 40 minutes or take hostile action for 90 minutes. Do not respawn while situation is ongoing or EMS en route.</p>
+                        
+                        <h4 class="font-orbitron text-lg text-white">2. Combat Logging</h4>
+                        <p>Disconnecting to avoid roleplay, arrest, or death is cheating and prohibited. Examples include logging out during scenarios or using safe zones to escape.</p>
+                        
+                        <h4 class="font-orbitron text-lg text-white">3. Combat Storing</h4>
+                        <p>Putting away items involved in a hot situation to avoid loss (e.g., storing illegal items once cops lose sight) is prohibited.</p>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="font-orbitron text-lime-400">Roleplay Blurring & Perma-Death</h3>
+                    <div class="space-y-4 text-gray-300">
+                        <h4 class="font-orbitron text-lg text-white">1. Roleplay Blurring</h4>
+                        <p>Keep a clear line between IC and OOC. If personal feelings bleed into RP, take a break from the server.</p>
+                        
+                        <h4 class="font-orbitron text-lg text-white">2. Perma Death</h4>
+                        <p>You cannot force permanent death on others. If you choose permadeath for your character, roleplay it properly with EMS/doctor and use /me to indicate you will not continue that character.</p>
+                        
+                        <h4 class="font-orbitron text-lg text-white">3. Character Mixing</h4>
+                        <p>Mixing info or money between characters for advantage is prohibited.</p>
+                        
+                        <h4 class="font-orbitron text-lg text-white">4. Force Roleplay</h4>
+                        <p>Forcing unrealistic actions on others without a chance to evade or choose is forbidden.</p>
+                        
+                        <h4 class="font-orbitron text-lg text-white">5. Fear Roleplay / Value of Life</h4>
+                        <p>Roleplay as if your character hasone life. Take realistic precautions, comply if outnumbered, and make escape attempts realistic.</p>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="font-orbitron text-lime-400">FailRP / Cop Baiting / Interference</h3>
+                    <div class="space-y-4 text-gray-300">
+                        <h4 class="font-orbitron text-lg text-white">1. Fail / Low-Quality Roleplay (LQRP)</h4>
+                        <p>Unrealistic/disruptive actions that ruin immersion (e.g., ignoring /me, talking normally while downed, exploiting safe zones) are FailRP and can be punished.</p>
+                        
+                        <h4 class="font-orbitron text-lg text-white">2. Cop Baiting</h4>
+                        <p>Deliberately provoking police to force confrontations is prohibited (e.g., causing collisions to start chases).</p>
+                        
+                        <h4 class="font-orbitron text-lg text-white">3. No 3rd-Party Interference</h4>
+                        <p>If Group A fights Group B, Group C cannot interfere, except specified exceptions (store owner, gangs within turf).</p>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="font-orbitron text-lime-400">Criminal Rules & Scenario Specifics</h3>
+                    <div class="space-y-4 text-gray-300">
+                        <h4 class="font-orbitron text-lg text-white">1. 6-Man Rule</h4>
+                        <p>Criminal activities are limited to a maximum of six participants at a time. Separate scenario rules apply for events like prison transport.</p>
+                        
+                        <h4 class="font-orbitron text-lg text-white">2. Friendly Hostages</h4>
+                        <p>Friendly hostages are strictly prohibited for any criminal activity.</p>
+                        
+                        <h4 class="font-orbitron text-lg text-white">3. Cooldown Periods</h4>
+                        <p>Shooting cooldown: 90 minutes between any shootout. Store Robberies: 45 min | Fleeca: 120 min | High-Value: 180 min. Respect cooldowns and leave the area for at least 5 minutes before returning.</p>
+                        
+                        <h4 class="font-orbitron text-lg text-white">4. Robbery Planning</h4>
+                        <p>Participants must have a planned robbery. Evading police by merely driving is not acceptable. No outside assistance (lookouts/radio/info sharing).</p>
+                        
+                        <h4 class="font-orbitron text-lg text-white">5. House Robbery Rules</h4>
+                        <p>Participants: 2 to 4 players. Backpack required.</p>
+                        
+                        <h4 class="font-orbitron text-lg text-white">6. Store Robbery Rules</h4>
+                        <p>Participants: 2 to 4 players. Hostages allowed: max 1. Backpack required. Do not kidnap AFK players.</p>
+                        
+                        <h4 class="font-orbitron text-lg text-white">7. Fleeca Bank Rules</h4>
+                        <p>Participants: 4 to 6 players. Hostages allowed: max 1. Backpack required. Do not kidnap AFK players.</p>
+                        
+                        <h4 class="font-orbitron text-lg text-white">8. Vangelico Jewelry Robbery</h4>
+                        <p>Participants: 4 to 6 players. Hostages allowed: max 1. Backpack required. Do not kidnap AFK players.</p>
+                        
+                        <h4 class="font-orbitron text-lg text-white">9. Pacific Bank Robbery (Pending Details)</h4>
+                        <p>Participants: minimum 4, maximum 6. Escape vehicles: 2. Hostages allowed: max 2. Backpack required. Do not kidnap AFK players. Details pending.</p>
+                        
+                        <h4 class="font-orbitron text-lg text-white">10. Loot & Interference Rules</h4>
+                        <p>No chain robberies. No outside assistance or coordinating separate criminal groups in overlapping objectives. Camping or staking areas for crimes is not allowed.</p>
+                        
+                        <h4 class="font-orbitron text-lg text-white">11. Mechanics & Job Restrictions</h4>
+                        <p>Mechanics cannot use F1 menu or job-specific abilities during criminal activities. Criminals cannot rob other players at spawn/teleport locations.</p>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="font-orbitron text-lime-400">Scenario Rules & Misc Criminal Interaction</h3>
+                    <div class="space-y-4 text-gray-300">
+                        <h4 class="font-orbitron text-lg text-white">1. Interference & Hostage Rules</h4>
+                        <p>Interfering in ongoing robberies is not allowed except specified exceptions. Fake hostages are strictly prohibited.</p>
+                        
+                        <h4 class="font-orbitron text-lg text-white">2. Respect for Law Enforcement</h4>
+                        <p>Show IC respect and fear for police. Robbing police should not yield police-only items or money.</p>
+                        
+                        <h4 class="font-orbitron text-lg text-white">3. Money Exploits</h4>
+                        <p>Exploits or middlemen schemes to double/transfer money between characters are banned.</p>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="font-orbitron text-lime-400">Server Restart Rules</h3>
+                    <div class="space-y-4 text-gray-300">
+                        <h4 class="font-orbitron text-lg text-white">1. No Criminal Activity Around Restarts</h4>
+                        <p>No criminal activity 30 minutes before and 30 minutes after server restart. After an unscheduled crash/restart, wait 15 minutes before resuming criminal activity.</p>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="font-orbitron text-lime-400">Shooting Cooldown</h3>
+                    <div class="space-y-4 text-gray-300">
+                        <h4 class="font-orbitron text-lg text-white">1. Shooting Cooldown</h4>
+                        <p>There is a 90-minute cooldown between any form of shootout, regardless of scenario type.</p>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="font-orbitron text-lime-400">Torture RP Rules</h3>
+                    <div class="space-y-4 text-gray-300">
+                        <h4 class="font-orbitron text-lg text-white">1. Torture RP - Overview & Requirements</h4>
+                        <p>Torture RP is a sensitive element allowed only in interrogation scenarios to extract critical information (names of accomplices, item locations, plans). It must be concise, targeted, and not prolonged.</p>
+                        
+                        <h4 class="font-orbitron text-lg text-white">2. Consent & Awareness</h4>
+                        <p>Torture RP must be clearly communicated OOC. The player being tortured must provide OOC consent before proceeding. If they express discomfort, the RP must be adjusted or stopped immediately.</p>
+                        
+                        <h4 class="font-orbitron text-lg text-white">3. Allowed Methods</h4>
+                        <p>Allowed methods include non-lethal physical harm (slaps, punches) and psychological or verbal intimidation. Sparing non-lethal gunfire near feet/hands may be allowed but with no permanent injury or death.</p>
+                        
+                        <h4 class.font-orbitron text-lg text-white">4. RP Focus</h4>
+                        <p>Torture RP must be concise, targeted toward a specific RP goal, and not unnecessarily prolonged.</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            lucide.createIcons();
+            
+            const musicToggle = document.getElementById('music-toggle');
+            const musicIconOn = document.getElementById('music-icon-on');
+            const musicIconOff = document.getElementById('music-icon-off');
+            const backgroundMusic = document.getElementById('background-music');
+
+            const playMusic = async () => {
+                try {
+                    await backgroundMusic.play();
+                } catch (err) {
+                    console.error("Music autoplay was blocked by the browser. Requires user interaction.", err);
+                }
+            };
+
+            const pauseMusic = () => {
+                backgroundMusic.pause();
+            };
+
+            musicToggle.addEventListener('click', () => {
+                if (backgroundMusic.paused) {
+                    playMusic();
+                } else {
+                    pauseMusic();
+                }
+            });
+
+            backgroundMusic.onpause = () => {
+                musicIconOff.classList.add('hidden');
+                musicIconOn.classList.remove('hidden');
+            };
+            backgroundMusic.onplay = () => {
+                musicIconOn.classList.add('hidden');
+                musicIconOff.classList.remove('hidden');
+            };
+
+
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const menuIconOpen = document.getElementById('menu-icon-open');
+            const menuIconClose = document.getElementById('menu-icon-close');
+            
+            mobileMenuButton.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+                menuIconOpen.classList.toggle('block');
+                menuIconOpen.classList.toggle('hidden');
+                menuIconClose.classList.toggle('block');
+                menuIconClose.classList.toggle('hidden');
+            });
+
+            const dropdownButton = document.getElementById('dropdown-button');
+            const dropdownMenu = document.getElementById('dropdown-menu');
+            
+            dropdownButton.addEventListener('click', () => {
+                dropdownMenu.classList.toggle('hidden');
+            });
+            
+            window.addEventListener('click', (e) => {
+                if (!document.getElementById('dropdown-container').contains(e.target)) {
+                    dropdownMenu.classList.add('hidden');
+                }
+            });
+
+            const rulesModal = document.getElementById('rules-modal');
+            const rulesModalOverlay = document.getElementById('rules-modal-overlay');
+            const openRulesNav = document.getElementById('open-rules-nav');
+            const openRulesMobile = document.getElementById('open-rules-mobile');
+            const closeRulesModal = document.getElementById('close-rules-modal');
+
+            const openModal = () => {
+                rulesModalOverlay.classList.remove('hidden');
+                rulesModal.classList.remove('hidden');
+                setTimeout(() => { 
+                    rulesModalOverlay.classList.add('opacity-100');
+                    rulesModal.classList.add('opacity-100', 'scale-100');
+                    rulesModal.classList.remove('scale-95', 'opacity-0');
+                }, 10);
+            };
+
+            const closeModal = () => {
+                rulesModalOverlay.classList.remove('opacity-100');
+                rulesModal.classList.remove('opacity-100', 'scale-100');
+                rulesModal.classList.add('scale-95', 'opacity-0');
+                setTimeout(() => { 
+                    rulesModalOverlay.classList.add('hidden');
+                    rulesModal.classList.add('hidden');
+                }, 300);
+            };
+
+            openRulesNav.addEventListener('click', (e) => {
+                e.preventDefault();
+                openModal();
+            });
+            openRulesMobile.addEventListener('click', (e) => {
+                e.preventDefault();
+                openModal();
+                mobileMenu.classList.add('hidden');
+                menuIconOpen.classList.add('block');
+                menuIconOpen.classList.remove('hidden');
+                menuIconClose.classList.add('hidden');
+                menuIconClose.classList.remove('block');
+            });
+            closeRulesModal.addEventListener('click', closeModal);
+            rulesModalOverlay.addEventListener('click', closeModal);
+
+            
+            const animatedElements = document.querySelectorAll('.animate-fade-in-up');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                    }
+                });
+            }, {
+                threshold: 0.1 
+            });
+
+            animatedElements.forEach(el => {
+                observer.observe(el);
+            });
+
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    const href = this.getAttribute('href');
+                    if (href.startsWith('#') && href.length > 1) {
+                        e.preventDefault();
+                        const targetElement = document.querySelector(href);
+                        if (targetElement) {
+                            targetElement.scrollIntoView({
+                                behavior: 'smooth'
+                            });
+                        }
+                    }
+                });
+            });
+
+            const navbar = document.getElementById('navbar');
+            window.onscroll = () => {
+                if (document.body.scrollTop > 50 || document.documentElement.scrollTop > 50) {
+                    navbar.classList.add('h-16');
+                    navbar.classList.remove('h-20');
+                } else {
+                    navbar.classList.add('h-20');
+                    navbar.classList.remove('h-16');
+                }
+            };
+
+            playMusic();
+
+            // Check if user is logged in and update button
+            checkUserLogin();
+        });
+
+        // Function to check user login status
+        async function checkUserLogin() {
+            try {
+                const response = await fetch('http://localhost:3000/auth/status', {
+                    credentials: 'include'
+                });
+                
+                if (response.ok) {
+                    const data = await response.json();
+                    if (data.authenticated && data.user) {
+                        // User is logged in, update desktop button
+                        const userButton = document.getElementById('user-button');
+                        const userButtonText = document.getElementById('user-button-text');
+                        
+                        if (userButton && userButtonText) {
+                            userButtonText.textContent = data.user.display_name;
+                            userButton.href = '#';
+                            userButton.title = 'User Menu';
+                            
+                            // Setup dropdown menu functionality
+                            setupUserDropdown();
+                        }
+
+                        // Update mobile menu button
+                        const mobileUserButton = document.getElementById('mobile-user-button');
+                        const mobileUserButtonText = document.getElementById('mobile-user-button-text');
+                        
+                        if (mobileUserButton && mobileUserButtonText) {
+                            mobileUserButtonText.textContent = data.user.display_name;
+                            mobileUserButton.href = 'dashboard.html';
+                            mobileUserButton.title = 'Go to Dashboard';
+                        }
+                    }
+                }
+            } catch (error) {
+                // Server not running or user not logged in, keep default "Login" button
+                console.log('User not logged in or server not available');
+            }
+        }
+
+        // Setup user dropdown menu
+        function setupUserDropdown() {
+            const userDropdownContainer = document.getElementById('user-dropdown-container');
+            const userDropdownMenu = document.getElementById('user-dropdown-menu');
+            const userButton = document.getElementById('user-button');
+            const logoutButton = document.getElementById('logout-button');
+
+            if (!userDropdownContainer || !userDropdownMenu || !userButton) return;
+
+            let hideTimeout;
+
+            // Show dropdown on hover over button
+            userButton.addEventListener('mouseenter', () => {
+                clearTimeout(hideTimeout);
+                userDropdownMenu.classList.remove('hidden');
+                lucide.createIcons(); // Re-initialize icons in dropdown
+            });
+
+            // Keep dropdown visible when hovering over it
+            userDropdownMenu.addEventListener('mouseenter', () => {
+                clearTimeout(hideTimeout);
+                userDropdownMenu.classList.remove('hidden');
+            });
+
+            // Hide dropdown when mouse leaves button
+            userButton.addEventListener('mouseleave', () => {
+                hideTimeout = setTimeout(() => {
+                    userDropdownMenu.classList.add('hidden');
+                }, 200); // 200ms delay before hiding
+            });
+
+            // Hide dropdown when mouse leaves menu
+            userDropdownMenu.addEventListener('mouseleave', () => {
+                hideTimeout = setTimeout(() => {
+                    userDropdownMenu.classList.add('hidden');
+                }, 200); // 200ms delay before hiding
+            });
+
+            // Toggle dropdown on click
+            userButton.addEventListener('click', (e) => {
+                e.preventDefault();
+                clearTimeout(hideTimeout);
+                userDropdownMenu.classList.toggle('hidden');
+                lucide.createIcons();
+            });
+
+            // Close dropdown when clicking outside
+            document.addEventListener('click', (e) => {
+                if (!userDropdownContainer.contains(e.target)) {
+                    userDropdownMenu.classList.add('hidden');
+                }
+            });
+
+            // Handle logout
+            if (logoutButton) {
+                logoutButton.addEventListener('click', async (e) => {
+                    e.preventDefault();
+                    try {
+                        await fetch('http://localhost:3000/auth/logout', {
+                            credentials: 'include'
+                        });
+                        // Redirect to home and reload
+                        window.location.href = 'index.html';
+                    } catch (error) {
+                        console.error('Logout error:', error);
+                        window.location.href = 'index.html';
+                    }
+                });
+            }
+        }
+    </script>
+</body>
+</html>
+
